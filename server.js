@@ -10,9 +10,13 @@ dotenv.config({ path: './config/config.env' });
 
 connectDB();
 
+//route files
 const app = express();
 const auth = require('./routes/auth');
 const cloud = require('./routes/cloud');
+const campgrounds = require('./routes/campgrounds');
+const bookings = require('./routes/bookings');
+
 app.use(cors());
 
 app.use(session({
@@ -28,8 +32,11 @@ app.use(passport.session());
 app.use(express.json());
 app.use(cookieParser());
 
+//mount routes
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/cloud', cloud);
+app.use('/api/v1/campgrounds', campgrounds);
+app.use('/api/v1/bookings', bookings);
 
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
