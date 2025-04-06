@@ -12,20 +12,32 @@ const sendTokenResponse = (user, statusCode, res) => {
         success : true,
         data : {
             token,
-            user
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                tel: user.tel,
+                role: user.role
+            }
         }
     })
 }
 
 exports.register = async (req, res, next) => {
     try{
-        const {name, email, password, tel} = req.body
-
+        const {name, email, password, tel, role} = req.body
+        if(!name || !email || !password || !tel){
+            return res.status(400).json({
+                success : false,
+                message : "Failed to create User"
+            })
+        }
         const user = await User.create({
             name,
             email,
             tel,
-            password
+            password,
+            role,
         })
 
         sendTokenResponse(user, 200, res)

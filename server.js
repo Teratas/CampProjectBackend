@@ -16,6 +16,7 @@ const auth = require('./routes/auth');
 const cloud = require('./routes/cloud');
 const campgrounds = require('./routes/campgrounds');
 const bookings = require('./routes/bookings');
+const userRouter = require('./routes/user')
 
 app.use(cors());
 
@@ -37,6 +38,8 @@ app.use('/api/v1/auth', auth);
 app.use('/api/v1/cloud', cloud);
 app.use('/api/v1/campgrounds', campgrounds);
 app.use('/api/v1/bookings', bookings);
+app.use('/api/v1/users', userRouter)
+
 
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
