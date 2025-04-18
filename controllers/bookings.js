@@ -95,14 +95,14 @@ exports.addBooking=async(req,res,next)=>{
         
         //check up to 3 nights (4 day)
         if(!req.body.startDate || !req.body.endDate){
-            return res.status(404).json({success: false, message:'Please specify start and end of booking.'})
+            return res.status(400).json({success: false, message:'Please specify start and end of booking.'})
         }
 
         const startDate = new Date(req.body.startDate);
         const endDate = new Date(req.body.endDate);
 
         if(!validateDate(startDate, endDate)){
-            return res.status(404).json({success: false, message:'Can book only 1-3 nights, start from today.'})
+            return res.status(400).json({success: false, message:'Can book only 1-3 nights, start from today.'})
         }
 
         //add userId to req.body
@@ -146,14 +146,14 @@ exports.updateBooking=async(req,res,next)=>{
 
         //verify date check up to 3 nights (4 day)
         if(!req.body.startDate || !req.body.endDate){
-            return res.status(404).json({success: false, message:'Please specify start and end of booking.'})
+            return res.status(400).json({success: false, message:'Please specify start and end of booking.'})
         }
 
         const startDate = new Date(req.body.startDate);
         const endDate = new Date(req.body.endDate);
 
         if(!validateDate(startDate, endDate)){
-            return res.status(404).json({success: false, message:'Can book only 1-3 nights, start from today.'})
+            return res.status(400).json({success: false, message:'Can book only 1-3 nights, start from today.'})
         }
 
         booking = await Booking.findByIdAndUpdate(req.params.id, req.body,{
