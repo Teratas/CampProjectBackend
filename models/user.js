@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema({
     tel: {
         type: String,
         required: [true, 'Please add an telephone number'],
+        match: [/^0[689]\d{8}$/, 'Invalid Thai phone number format'],
         unique: true
     },
     email: {
