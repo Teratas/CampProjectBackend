@@ -1,5 +1,5 @@
 const { Router } = require("express")
-const {updateProfile} = require('../controllers/user')
+const {updateProfile, getUserByEmail} = require('../controllers/user')
 const path = require('path')
 const multer = require('multer')
 const router = Router()
@@ -24,5 +24,5 @@ const upload = multer({
     limits : {fileSize : maxSize}
 })
 router.put('/update-user/:id',upload.single('profileImage') , updateProfile)
-
+router.post('/findUser', getUserByEmail)
 module.exports = router
